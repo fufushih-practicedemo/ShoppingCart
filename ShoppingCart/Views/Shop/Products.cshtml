@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ShoppingCart.Models.ViewModels.Shop.ProductVM>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<h1>Shop page</h1>
+<br />
+<div>
+    <div class="col-xs-12 col-md-2">
+        <h3>Category</h3>
+        <select id="SelectCategory" name="SelectCategory">
+            <option value="0">All</option>
+            @foreach (var item in ViewBag.Categories) {
+                if (ViewBag.SelectCat == item.Value) {
+                    <option selected="selected" value="@item.Value">@item.Text</option>
+                } else {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-xs-12 col-md-10">
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var product in ViewBag.OnePageOfProduct) {
+                <tr>
+                    <td>
+                        @product.Name
+                    </td>
+                    <td>
+                        @product.Description
+                    </td>
+                    <td>
+                        @product.Price
+                    </td>
+                    <td>
+                        <a href="/shop/ProductDetails?id=@product.Id">
+                            <img src="/Images/Uploads/Products/@product.Id/Thumbs/@product.ImageName" />
+                        </a>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "ProductDetails", new { id = product.Id })
+                    </td>
+
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProduct, page => Url.Action("Products", new { page, catId = ViewBag.SelectCat }))
+
+@section Scripts{
+    <script src="http://code.jquery.con/ui/1.12.0/jquery-ui.min.js"></script>
+    <script>
+
+        $(function () {
+            // Select products from specified category
+            $("#SelectCategory").on("change", function () {
+                var url = $(this).val();
+
+                if (url) {
+                    window.location = "/shop/Products?catId=" + url;
+                }
+
+                return false;
+            });
+
+
+        });
+
+    </script>
+}

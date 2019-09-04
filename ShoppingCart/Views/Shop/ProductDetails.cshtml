@@ -1,0 +1,58 @@
+﻿@model ShoppingCart.Models.ViewModels.Shop.ProductVM
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12 col-md-4">
+        <img src="/Images/Uploads/Products/@Model.Id/Thumbs/@Model.ImageName" />
+    </div>
+
+    <div class="col-xs-12 col-md-8">
+        <h4>Description :</h4>
+        @Model.Description
+        <br />
+        <h4>Price :</h4>
+        $ - @Model.Price
+        <br />
+        @if (Request.IsAuthenticated) {
+            <div class="addtocart">
+                <a href="#" class="addtocart">Add to cart</a>
+                <span class="ajaxmsg">The Product has been added to your cart</span>
+            </div>
+        }
+
+    </div>
+</div>
+
+<br />
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            // Add to cart
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                var url = "/cart/AddToCartPartial";
+
+                $.get(url, { id:@Model.Id }, function (data) {
+                    $(".ajaxcart").html(data);
+                }).done(function () {
+                    $("span.ajaxmsg").addClass("ib");
+                    setTimeout(function () {
+                        $("span.ajaxmsg").fadeOut("fast");
+                        $("span.ajaxmsg").removeClass("ib");
+                    }, 1000);
+                });
+            });
+
+
+        });
+
+    </script>
+}

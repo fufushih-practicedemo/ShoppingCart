@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home Page</h2>
+
+<br />
+
+
+@if (Request.IsAuthenticated && User.IsInRole("User")) {
+    <h4>Hi, User </h4>
+
+    <a class="btn btn-link" href="/shop/products" role="button">Go Shop</a>
+    <a class="btn btn-link" href="/user/user-profile" role="button">Your profile</a>
+    <a class="btn btn-link" href="/cart" role="button">See Your Cart</a>
+    <a class="btn btn-link" href="/user/Orders" role="button">See Your Order</a>
+
+} else if (Request.IsAuthenticated && User.IsInRole("Admin")) {
+    <h4>Hi, Admin</h4>
+    <a class="btn btn-link" href="/admin/dashboard" role="button">Go Dashboard</a>
+
+} else {
+    <h4>Hello, This is a demo of Shopping Cart!!</h4>
+    <a class="btn btn-link" href="/user/login" role="button">Go Login</a>
+    <br />
+    <br />
+    <a class="btn btn-link" href="/user/create-account" role="button">Go Register</a>
+}
