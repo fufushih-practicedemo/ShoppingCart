@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "User";
+}
+
+<br />
+<h4>Hi, @User.Identity.Name </h4>
+
+<br />
+<div>
+    
+    <ul class="list-unstyled">
+        <li class="media">
+            <div class="media-body row">
+                <i class="fas fa-store"></i>
+                <a class="btn btn-link" href="/shop/products" role="button">Go Shop</a>
+            </div>
+        </li>
+        <li class="media my-4">
+            <div class="media-body row">
+                <i class="fas fa-list-alt"></i>
+                <a class="btn btn-link" href="/user/user-profile" role="button">Change Your profile</a>
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-body row">
+                <i class="fas fa-shopping-cart"></i>
+                <a class="btn btn-link" href="/cart" role="button">See Your Cart</a>
+            </div>
+        </li>
+
+        <li class="media">
+            
+            <div class="media-body row">
+                <i class="fas fa-receipt"></i>
+                <a class="btn btn-link" href="/user/Orders" role="button">See Your Order</a>
+            </div>
+        </li>
+    </ul>
+</div>

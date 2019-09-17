@@ -160,6 +160,7 @@ namespace ShoppingCart.Controllers
                 UserDTO dto = db.Users.FirstOrDefault(x => x.Account == userAccount);
 
                 model = new UserProfileVM(dto);
+                model.Password = "";
             }
 
             return View("UserProfile", model);

@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title - Demo</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,26 +24,26 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
-                </ul>
-                <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Shop", "Products", "Shop")</li>
-                    @if (Request.IsAuthenticated) {
-                        <li><a href="/user/logout">Logout</a></li>
-                    } else {
-                        <li><a href="/user/login">Login</a></li>
-                    }
                 </ul>
-                <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated && User.IsInRole("User")) {
-                        @Html.Action("UserNavPartial", "User", new { area = "" })
-                    }
-                </ul>
+
                 <ul class="navbar-collapse collapse navbar-right">
                     <li>
                         @if (Request.IsAuthenticated && User.IsInRole("User")) {
                             @Html.Action("CartPartial", "Cart")
                         }
                     </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Request.IsAuthenticated && User.IsInRole("User")) {
+                        <li>@Html.Action("UserNavPartial", "User", new { area = "" })</li>
+                    }
+                    @if (Request.IsAuthenticated) {
+                        <li><a href="/user/logout">Logout</a></li>
+                    } else {
+                        <li><a href="/user/login">Login</a></li>
+                    }
                 </ul>
             </div>
         </div>
