@@ -1,4 +1,5 @@
 ﻿using ShoppingCart.Models.Data;
+using ShoppingCart.Models.Features;
 using ShoppingCart.Models.ViewModels.Shop;
 using ShoppingCart.Models.ViewModels.User;
 using System;
@@ -52,6 +53,9 @@ namespace ShoppingCart.Controllers
             }
 
             using (Db db = new Db()) {
+                AccountFeature accountFeature = new AccountFeature();
+                var hashPassword = accountFeature.HashPassword(model.Password);
+
                 // make sure account is unique
                 if (db.Users.Any(x => x.Account.Equals(model.Account))) {
                     ModelState.AddModelError("", "Account " + model.Account + "已有人使用!!");
@@ -65,7 +69,7 @@ namespace ShoppingCart.Controllers
                     Name = model.Name,
                     Email = model.Email,
                     Account = model.Account,
-                    Password = model.Password
+                    Password = hashPassword
                 };
                 // add DTO to db and save
                 db.Users.Add(userDTO);
@@ -102,7 +106,10 @@ namespace ShoppingCart.Controllers
             bool isValid = false;
 
             using (Db db = new Db()) {
-                if (db.Users.Any(x => x.Account.Equals(model.Account) && x.Password.Equals(model.Password))) {
+                AccountFeature accountFeature = new AccountFeature();
+                var hashPassword = accountFeature.HashPassword(model.Password);
+
+                if (db.Users.Any(x => x.Account.Equals(model.Account) && x.Password.Equals(hashPassword))) {
                     isValid = true;
                 }
 
@@ -179,8 +186,11 @@ namespace ShoppingCart.Controllers
             using(Db db = new Db()) {
                 string userAccount = User.Identity.Name;
 
+                AccountFeature accountFeature = new AccountFeature();
+                var hashPassword = accountFeature.HashPassword(model.Password);
+
                 // Make sure account is unique
-                if(db.Users.Where(x => x.Id != model.Id).Any(x => x.Account == userAccount)) {
+                if (db.Users.Where(x => x.Id != model.Id).Any(x => x.Account == userAccount)) {
                     ModelState.AddModelError("", "Account " + model.Account + " already exists!");
                     model.Account = "";
                     return View("UserProfile", model);
@@ -194,7 +204,7 @@ namespace ShoppingCart.Controllers
                 dto.Account = model.Account;
 
                 if (!string.IsNullOrWhiteSpace(model.Password)) {
-                    dto.Password = model.Password;
+                    dto.Password = hashPassword;
                 }
 
                 db.SaveChanges();

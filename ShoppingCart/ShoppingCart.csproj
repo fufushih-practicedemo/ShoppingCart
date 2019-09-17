@@ -157,6 +157,7 @@
     <Compile Include="Models\Data\RoleDTO.cs" />
     <Compile Include="Models\Data\UserDTO.cs" />
     <Compile Include="Models\Data\UserRoleDTO.cs" />
+    <Compile Include="Models\Features\AccountFeature.cs" />
     <Compile Include="Models\ViewModels\Cart\CartVM.cs" />
     <Compile Include="Models\ViewModels\Shop\CategoryVM.cs" />
     <Compile Include="Models\ViewModels\Shop\OrderVM.cs" />
