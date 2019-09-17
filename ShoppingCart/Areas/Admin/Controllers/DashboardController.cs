@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ShoppingCart.Areas.Admin.Models.ViewModel.Dashboard;
+using ShoppingCart.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +14,16 @@ namespace ShoppingCart.Areas.Admin.Controllers
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
-            return View();
+            DashboardVM model = new DashboardVM();
+
+            using(Db db = new Db()) {
+                model.userCount = db.Users.Count();
+                model.categoryCount = db.Categories.Count();
+                model.productCount = db.Products.Count();
+                model.orderCount = db.Orders.Count();
+            }
+
+            return View(model);
         }
     }
 }

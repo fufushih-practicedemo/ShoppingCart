@@ -1,12 +1,61 @@
-﻿
+﻿@model ShoppingCart.Areas.Admin.Models.ViewModel.Dashboard.DashboardVM
+
 @{
     ViewBag.Title = "Dashboard";
 }
 
 <h2>Dashboard</h2>
 
-<a class="btn btn-link" href="/Admin/Shop/Categories">Categories</a>
+<hr />
 <br />
-<a class="btn btn-link" href="/Admin/Shop/Products">Products</a>
-<br />
-<a class="btn btn-link" href="/Admin/Shop/Orders">Orders</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-shopping-basket fa-2x"></i>
+                    <h3>Products</h3>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-link" href="/Admin/Shop/Products">Count: @Model.productCount</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-receipt fa-2x"></i>
+                    <h3>Orders</h3>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-link" href="/Admin/Shop/Orders">Count: @Model.orderCount</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-list fa-2x"></i>
+                    <h3>Cartegories</h3>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-link" href="/Admin/Shop/Categories">Count: @Model.categoryCount</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user fa-2x"></i>
+                    <h3>Users</h3>
+                </div>
+                <div class="card-body">
+                    Count: @Model.userCount
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
