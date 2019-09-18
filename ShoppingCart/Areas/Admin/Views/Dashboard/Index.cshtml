@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3 ">
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-receipt fa-2x"></i>
@@ -59,3 +59,65 @@
         </div>
     </div>
 </div>
+
+<hr />
+
+<div id="app">
+    <input />
+
+    <br /><br />
+
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+
+        <tr v-for="product in products">
+            <td>
+                {{ product.Name }}
+            </td>
+            <td>
+                {{ product.Price }}
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<script>
+    var instance = axios.create({
+        baseURL: 'http://localhost:49980/',
+        timeout: 1000,
+    });
+
+    new Vue({
+        el: "#app",
+        data: {
+            firstName: "Jeffrey",
+            lastName: "Leee",
+            products: [],
+            
+        },
+        mounted: function () {
+            instance
+                .get('api/products')
+                .then(response => {
+                    this.products = response.data
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+    });
+</script>
