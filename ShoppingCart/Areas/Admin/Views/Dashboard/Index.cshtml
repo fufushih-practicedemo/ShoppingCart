@@ -99,6 +99,7 @@
         </div>
 
         <div class="tab-pane fade" id="order">
+
             <table class="table">
                 <tr>
                     <th>
@@ -125,6 +126,13 @@
                 </tr>
 
             </table>
+
+            <br />
+            <hr />
+            <br />
+            <div class="col-xs-12">
+                <canvas id="myChart" width="500" height="300"></canvas>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="user">
@@ -190,6 +198,28 @@
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                 });
+        },
+        updated: function () {
+            var labeldata = [];
+            var chrtdata = [];
+            var orderNum = 1;
+
+            for (var i = 0; i < this.orders.length; i++) {
+                labeldata.push(this.orders[i].CreatedAt);
+                chrtdata.push(orderNum++);
+            }
+            var ctx = document.getElementById("myChart").getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labeldata,
+                    datasets: [{
+                        label: 'Create At',
+                        data: chrtdata,
+                        backgroundColor: "rgba(153,255,51,0.6)"
+                    }]
+                }
+            });
         }
     });
 </script>
