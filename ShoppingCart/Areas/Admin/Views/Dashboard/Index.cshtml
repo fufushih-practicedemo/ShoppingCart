@@ -62,31 +62,95 @@
 
 <hr />
 
+
 <div id="app">
-    <input />
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#product" data-toggle="tab">
+                Products
+            </a>
+        </li>
+        <li><a href="#order" data-toggle="tab">Order</a></li>
+        <li><a href="#user" data-toggle="tab">User</a></li>
+    </ul>
 
-    <br /><br />
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="product">
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
 
-    <table class="table">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
+                <tr v-for="product in products">
+                    <td>
+                        {{ product.Name }}
+                    </td>
+                    <td>
+                        {{ product.Price }}
+                    </td>
+                </tr>
 
-        <tr v-for="product in products">
-            <td>
-                {{ product.Name }}
-            </td>
-            <td>
-                {{ product.Price }}
-            </td>
-        </tr>
+            </table>
+        </div>
 
-    </table>
+        <div class="tab-pane fade" id="order">
+            <table class="table">
+                <tr>
+                    <th>
+                        OrderId
+                    </th>
+                    <th>
+                        UserId
+                    </th>
+                    <th>
+                        Create At
+                    </th>
+                </tr>
+
+                <tr v-for="order in orders">
+                    <td>
+                        {{ order.OrderId }}
+                    </td>
+                    <td>
+                        {{ order.UserId }}
+                    </td>
+                    <td>
+                        {{ order.CreatedAt }}
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="user">
+            <table class="table">
+                <tr>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        email
+                    </th>
+                </tr>
+
+                <tr v-for="user in users">
+                    <td>
+                        {{ user.Name }}
+                    </td>
+                    <td>
+                        {{ user.Email }}
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    
 
 </div>
 
@@ -99,25 +163,33 @@
     new Vue({
         el: "#app",
         data: {
-            firstName: "Jeffrey",
-            lastName: "Leee",
             products: [],
-            
+            orders: [],
+            users: []
         },
         mounted: function () {
             instance
-                .get('api/products')
+                .get('api/products/getproducts')
                 .then(response => {
                     this.products = response.data
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                 });
-        },
-        computed: {
-            fullName: function () {
-                return this.firstName + " " + this.lastName;
-            }
+            instance.get('api/products/getusers')
+                .then(response => {
+                    this.users = response.data
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            instance.get('api/products/getorders')
+                .then(response => {
+                    this.orders = response.data
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
         }
     });
 </script>

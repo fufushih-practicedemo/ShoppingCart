@@ -35,5 +35,33 @@ namespace ShoppingCart.Controllers.API
             return db.Products.FirstOrDefault(x => x.Id == id);
 
         }
+
+        public IEnumerable<OrderDTO> GetOrders()
+        {
+            Db db = new Db();
+            var orders = db.Orders.ToArray().Select(x => new OrderDTO()
+            {
+                OrderId = x.OrderId,
+                UserId = x.UserId,
+                CreatedAt = x.CreatedAt
+            }).ToList();
+
+            return orders;
+        }
+
+        public IEnumerable<UserDTO> GetUsers()
+        {
+            Db db = new Db();
+            var users = db.Users.ToArray().Select(x => new UserDTO()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Email = x.Email,
+                Account = x.Account,
+                Password = x.Password
+            }).ToList();
+
+            return users;
+        }
     }
 }

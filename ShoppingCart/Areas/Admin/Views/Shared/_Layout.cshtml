@@ -10,6 +10,13 @@
           crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+            // remove the gap so it doesn't close
+        }
+    </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -27,7 +34,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Demo-ShoppingCart", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Go</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item btn btn-link" href="/Admin/Shop/Products">Products</a>
+                            <a class="dropdown-item btn btn-link" href="/Admin/Shop/Categories">Categories</a>
+                            <a class="dropdown-item btn btn-link" href="/Admin/Shop/Orders">Orders</a>
+                        </div>
+                    </li>
                 </ul>
                 
                 <ul class="nav navbar-right">
@@ -46,4 +60,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>
