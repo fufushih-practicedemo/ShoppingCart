@@ -10,19 +10,15 @@ namespace ShoppingCart.Controllers.API
 {
     public class ProductsController : ApiController
     {
-        public IEnumerable<ProductDTO> GetProducts()
+        public IEnumerable<object> GetProducts()
         {
             Db db = new Db();
-            var products = db.Products.ToArray().Select(x => new ProductDTO()
+            var products = db.Products.ToArray().Select(x => new 
             {
-                Id = x.Id,
-                Name = x.Name,
-                Slug = x.Slug,
-                Description = x.Description,
-                Price = x.Price,
-                CategoryName = x.CategoryName,
-                CategoryId = x.CategoryId,
-                ImageName = x.ImageName
+                x.Name,
+                x.Price,
+                x.CategoryName,
+                x.CategoryId,
             }).ToList();
 
             return products;
