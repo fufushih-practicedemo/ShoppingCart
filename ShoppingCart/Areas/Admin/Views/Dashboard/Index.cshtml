@@ -173,9 +173,15 @@
         data: {
             products: [],
             orders: [],
-            users: []
+            users: [],
+            labeldata: [],
+            chrtdata: [],
+            orderNum: 0
         },
         mounted: function () {
+            labeldata = [];
+            chrtdata = [];
+            orderNum = 0;
             instance
                 .get('api/products/getproducts')
                 .then(response => {
@@ -200,13 +206,10 @@
                 });
         },
         updated: function () {
-            var labeldata = [];
-            var chrtdata = [];
-            var orderNum = 1;
-
             for (var i = 0; i < this.orders.length; i++) {
+                orderNum++;
                 labeldata.push(this.orders[i].CreatedAt);
-                chrtdata.push(orderNum++);
+                chrtdata.push(orderNum);
             }
             var ctx = document.getElementById("myChart").getContext("2d");
             new Chart(ctx, {
